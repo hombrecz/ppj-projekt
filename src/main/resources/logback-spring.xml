@@ -18,10 +18,10 @@
 
     <logger name="org.springframework" level="WARN"/>
 
-    <logger name="ppj" level="INFO"/>
+    <logger name="cz.hombre" level="INFO"/>
 
     <springProfile name="devel">
-        <logger name="ppj" level="DEBUG"/>
+        <logger name="cz.hombre" level="DEBUG"/>
     </springProfile>
 
 </configuration>

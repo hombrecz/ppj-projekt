@@ -1,7 +1,6 @@
-package cz.hombre.configs;
+package cz.hombre.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -10,9 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 @Component
-@ConfigurationProperties(prefix = "app")
-@Import(WriterConfiguration.class)
-public class AppConfiguration {
+@Import(WriterConfig.class)
+public class LogConfig {
 
     @Autowired
     private Environment environment;

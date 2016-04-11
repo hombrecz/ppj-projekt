@@ -1,4 +1,4 @@
-package cz.hombre.configs;
+package cz.hombre.config;
 
 import cz.hombre.writer.DevelWriter;
 import cz.hombre.writer.ProdWriter;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
  * @author ondrej.dlabola
  */
 @Configuration
-public class WriterConfiguration {
+public class WriterConfig {
 
     @Bean
     @Profile("devel")
