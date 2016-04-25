@@ -1,4 +1,4 @@
-package cz.hombre;
+package cz.hombre.app;
 
 import cz.hombre.config.LogConfig;
 import cz.hombre.writer.Writer;

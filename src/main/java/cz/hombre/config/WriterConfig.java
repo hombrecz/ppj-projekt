@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Profile;
 public class WriterConfig {
 
     @Bean
-    @Profile("devel")
+    @Profile("TEST")
     public static Writer debugWriter(){
         return new DevelWriter();
     };
 
     @Bean
-    @Profile("prod")
+    @Profile({"PROD_POSTGRESQL","PROD_MONGODB"})
     public static Writer defaultWriter(){
         return new ProdWriter();
     };
