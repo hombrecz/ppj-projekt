@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author ondrej.dlabola
@@ -14,7 +16,7 @@ import java.util.Date;
 public class Comment {
     @Id
     @GeneratedValue
-    private int id;
+    private int comment_id;
 
     @Column(name = "comment")
     private String comment;
@@ -36,6 +38,9 @@ public class Comment {
     @JoinColumn(name = "authorId")
     private Author author;
 
+    @ManyToMany(mappedBy = "images")
+    private Set<Image> imageSet = new HashSet<>();
+
     public Comment() {
 
     }
@@ -45,12 +50,12 @@ public class Comment {
         this.author = author;
     }
 
-    public int getId() {
-        return id;
+    public int getComment_id() {
+        return comment_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
     }
 
     public String getComment() {
@@ -108,7 +113,7 @@ public class Comment {
 
         Comment comment1 = (Comment) o;
 
-        if (id != comment1.id) return false;
+        if (comment_id != comment1.comment_id) return false;
         if (comment != null ? !comment.equals(comment1.comment) : comment1.comment != null) return false;
         if (createdDate != null ? !createdDate.equals(comment1.createdDate) : comment1.createdDate != null)
             return false;
@@ -123,7 +128,7 @@ public class Comment {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = comment_id;
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
         result = 31 * result + (changedDate != null ? changedDate.hashCode() : 0);
@@ -136,7 +141,7 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "id=" + id +
+                "comment_id=" + comment_id +
                 ", comment='" + comment + '\'' +
                 ", createdDate=" + createdDate +
                 ", changedDate=" + changedDate +

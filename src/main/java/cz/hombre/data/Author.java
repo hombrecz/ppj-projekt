@@ -13,7 +13,7 @@ import java.util.Date;
 public class Author {
     @Id
     @GeneratedValue
-    private int id;
+    private int author_id;
 
     @Column(name = "name")
     private String name;
@@ -28,12 +28,12 @@ public class Author {
         this.registrationDate = registrationDate;
     }
 
-    public int getId() {
-        return id;
+    public int getAuthor_id() {
+        return author_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
     }
 
     public String getName() {
@@ -59,7 +59,7 @@ public class Author {
 
         Author author = (Author) o;
 
-        if (id != author.id) return false;
+        if (author_id != author.author_id) return false;
         if (name != null ? !name.equals(author.name) : author.name != null) return false;
         return !(registrationDate != null ? !registrationDate.equals(author.registrationDate) : author.registrationDate != null);
 
@@ -67,7 +67,7 @@ public class Author {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = author_id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (registrationDate != null ? registrationDate.hashCode() : 0);
         return result;
@@ -76,7 +76,7 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
+                "author_id=" + author_id +
                 ", name='" + name + '\'' +
                 ", registrationDate=" + registrationDate +
                 '}';
