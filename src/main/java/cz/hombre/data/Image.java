@@ -53,6 +53,15 @@ public class Image {
                 inverseJoinColumns = {@JoinColumn(name="tag_id")})
     private Set<Tag> tagSet = new HashSet<>();
 
+    public Image() {
+    }
+
+    public Image(String name, String url, Author author) {
+        this.name = name;
+        this.url = url;
+        this.author = author;
+    }
+
     public int getImage_id() {
         return image_id;
     }

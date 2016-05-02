@@ -44,6 +44,13 @@ public class Tag {
         this.imageSet = imageSet;
     }
 
+    public Tag() {
+    }
+
+    public Tag(String value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
