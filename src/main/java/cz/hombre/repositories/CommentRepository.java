@@ -1,6 +1,6 @@
-package hombre.repositories;
+package cz.hombre.repositories;
 
-import hombre.data.Author;
+import cz.hombre.data.Comment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author ondrej.dlabola
  */
 @Repository
-public interface AuthorRepository extends CrudRepository<Author, Integer>  {
-
+public interface CommentRepository extends CrudRepository<Comment, Integer> {
 }

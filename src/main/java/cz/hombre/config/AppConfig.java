@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
  * @author ondrej.dlabola
  */
 @Configuration
-@ComponentScan("cz.hombre")
+@ComponentScan("hombre")
 @Import(LogConfig.class)
 public class AppConfig {
 
