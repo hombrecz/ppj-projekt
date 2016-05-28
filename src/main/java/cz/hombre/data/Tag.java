@@ -61,9 +61,14 @@ public class Tag {
     public Tag() {
     }
 
-    public Tag(UUID id, String value) {
+    public Tag(UUID id) {
+        this.id = id;
+    }
+
+    public Tag(UUID id, String value, Set<Image> imageSet) {
         this.id = id;
         this.value = value;
+        this.imageSet = imageSet;
     }
 
     @Override

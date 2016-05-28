@@ -48,10 +48,7 @@ public class Image {
     @DBRef
     private Author author;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable( name="image_comments",
-            joinColumns = {@JoinColumn(name="name")},
-            inverseJoinColumns = {@JoinColumn(name="id")})
+    @OneToMany(mappedBy = "image", fetch = FetchType.EAGER)
     @DBRef
     private Set<Comment> commentSet = new HashSet<>();
 
@@ -65,11 +62,20 @@ public class Image {
     public Image() {
     }
 
-    public Image(UUID id, String name, String url, Author author) {
+    public Image(UUID id) {
+        this.id = id;
+    }
+
+    public Image(UUID id, String name, String url, Author author, Set<Comment> commentSet, Set<Tag> tagSet,
+                 int likesCount, int dislikesCount) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.author = author;
+        this.commentSet = commentSet;
+        this.tagSet = tagSet;
+        this.likesCount = likesCount;
+        this.dislikesCount = dislikesCount;
     }
 
     @Override

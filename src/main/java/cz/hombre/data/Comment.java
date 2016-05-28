@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -44,12 +42,26 @@ public class Comment {
     @DBRef
     private Author author;
 
-    @ManyToMany(mappedBy = "commentSet")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "name")
     @DBRef
-    private Set<Image> imageSet = new HashSet<>();
+    private Image image;
 
     public Comment() {
+    }
 
+    public Comment(UUID id) {
+        this.id = id;
+    }
+
+    public Comment(UUID id, String comment, Author author, Image image, int likesCount, int dislikesCount) {
+        this.id = id;
+        this.comment = comment;
+        this.author = author;
+        this.createdDate = new Date();
+        this.likesCount = likesCount;
+        this.dislikesCount = dislikesCount;
     }
 
     public Comment(UUID id, String comment, Author author) {
@@ -119,6 +131,14 @@ public class Comment {
         this.author = author;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,8 +156,9 @@ public class Comment {
         if (dislikesCount != null ? !dislikesCount.equals(comment1.dislikesCount) : comment1.dislikesCount != null)
             return false;
         if (author != null ? !author.equals(comment1.author) : comment1.author != null) return false;
-        return !(imageSet != null ? !imageSet.equals(comment1.imageSet) : comment1.imageSet != null);
+        if (image != null ? !image.equals(comment1.image) : comment1.image != null) return false;
 
+        return true;
     }
 
     @Override
@@ -150,7 +171,7 @@ public class Comment {
                 ", likesCount=" + likesCount +
                 ", dislikesCount=" + dislikesCount +
                 ", author=" + author +
-                ", imageSet=" + imageSet +
+                ", image=" + image +
                 '}';
     }
 }
