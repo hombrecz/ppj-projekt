@@ -8,7 +8,7 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <encoder> <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> </encoder>
         <file>log.out</file>
-        <append>true</append>
+        <append>false</append>
     </appender>
 
     <root level="WARN">
@@ -18,10 +18,10 @@
 
     <logger name="org.springframework" level="WARN"/>
 
-    <logger name="hombre" level="INFO"/>
+    <logger name="cz.hombre" level="INFO"/>
 
     <springProfile name="devel">
-        <logger name="hombre" level="DEBUG"/>
+        <logger name="cz.hombre" level="DEBUG"/>
     </springProfile>
 
 </configuration>

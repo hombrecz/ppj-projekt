@@ -3,9 +3,12 @@ package cz.hombre.service;
 import cz.hombre.data.Comment;
 import cz.hombre.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -13,8 +16,10 @@ import java.util.stream.StreamSupport;
  * @author ondrej.dlabola
  */
 @Service
+@Transactional
 public class CommentService {
 
+    @Qualifier("commentRepository")
     @Autowired
     private CommentRepository commentRepository;
 
@@ -25,7 +30,7 @@ public class CommentService {
     public void create(Comment comment) { commentRepository.save(comment);
     }
 
-    public Comment getComment(Integer id) {
+    public Comment getComment(UUID id) {
         return commentRepository.findOne(id);
     }
 
@@ -34,7 +39,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         commentRepository.delete(id);
     }
 

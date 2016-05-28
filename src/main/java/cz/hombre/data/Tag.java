@@ -1,31 +1,45 @@
 package cz.hombre.data;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author ondrej.dlabola
  */
 @Entity
 @Table(name = "tags")
+@Document(collection = "tags")
 public class Tag {
+
+
     @Id
-    @GeneratedValue
-    private int tag_id;
+    @org.springframework.data.annotation.Id
+//    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "value")
     private String value;
 
-    @ManyToMany(mappedBy = "images")
+    @ManyToMany(mappedBy = "tagSet")
+    @DBRef
     private Set<Image> imageSet = new HashSet<>();
 
-    public int getTag_id() {
-        return tag_id;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
-    public void setTag_id(int tag_id) {
-        this.tag_id = tag_id;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getValue() {
@@ -47,7 +61,8 @@ public class Tag {
     public Tag() {
     }
 
-    public Tag(String value) {
+    public Tag(UUID id, String value) {
+        this.id = id;
         this.value = value;
     }
 
@@ -58,24 +73,16 @@ public class Tag {
 
         Tag tag = (Tag) o;
 
-        if (tag_id != tag.tag_id) return false;
+        if (id != null ? !id.equals(tag.id) : tag.id != null) return false;
         if (value != null ? !value.equals(tag.value) : tag.value != null) return false;
         return !(imageSet != null ? !imageSet.equals(tag.imageSet) : tag.imageSet != null);
 
     }
 
     @Override
-    public int hashCode() {
-        int result = tag_id;
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        result = 31 * result + (imageSet != null ? imageSet.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Tag{" +
-                "tag_id=" + tag_id +
+                "id=" + id +
                 ", value='" + value + '\'' +
                 ", imageSet=" + imageSet +
                 '}';

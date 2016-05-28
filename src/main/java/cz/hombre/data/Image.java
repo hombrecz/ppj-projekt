@@ -2,21 +2,27 @@ package cz.hombre.data;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author ondrej.dlabola
  */
 @Entity
 @Table(name = "images")
+@Document(collection = "images")
 public class Image {
+
     @Id
-    @GeneratedValue
-    private int image_id;
+    @org.springframework.data.annotation.Id
+//    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -38,36 +44,45 @@ public class Image {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "authorId")
+    @JoinColumn(name = "author")
+    @DBRef
     private Author author;
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable( name="image_comments",
-                joinColumns = {@JoinColumn(name="image_id")},
-                inverseJoinColumns = {@JoinColumn(name="comment_id")})
+            joinColumns = {@JoinColumn(name="name")},
+            inverseJoinColumns = {@JoinColumn(name="id")})
+    @DBRef
     private Set<Comment> commentSet = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable( name="image_tags",
-                joinColumns = {@JoinColumn(name="image_id")},
-                inverseJoinColumns = {@JoinColumn(name="tag_id")})
+            joinColumns = {@JoinColumn(name="name")},
+            inverseJoinColumns = {@JoinColumn(name="value")})
+    @DBRef
     private Set<Tag> tagSet = new HashSet<>();
 
     public Image() {
     }
 
-    public Image(String name, String url, Author author) {
+    public Image(UUID id, String name, String url, Author author) {
+        this.id = id;
         this.name = name;
         this.url = url;
         this.author = author;
     }
 
-    public int getImage_id() {
-        return image_id;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
-    public void setImage_id(int image_id) {
-        this.image_id = image_id;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -149,7 +164,6 @@ public class Image {
 
         Image image = (Image) o;
 
-        if (image_id != image.image_id) return false;
         if (name != null ? !name.equals(image.name) : image.name != null) return false;
         if (url != null ? !url.equals(image.url) : image.url != null) return false;
         if (createdDate != null ? !createdDate.equals(image.createdDate) : image.createdDate != null) return false;
@@ -159,30 +173,15 @@ public class Image {
             return false;
         if (author != null ? !author.equals(image.author) : image.author != null) return false;
         if (commentSet != null ? !commentSet.equals(image.commentSet) : image.commentSet != null) return false;
-        return !(tagSet != null ? !tagSet.equals(image.tagSet) : image.tagSet != null);
+        if (tagSet != null ? !tagSet.equals(image.tagSet) : image.tagSet != null) return false;
+        return !(id != null ? !id.equals(image.id) : image.id != null);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = image_id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (changedDate != null ? changedDate.hashCode() : 0);
-        result = 31 * result + (likesCount != null ? likesCount.hashCode() : 0);
-        result = 31 * result + (dislikesCount != null ? dislikesCount.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (commentSet != null ? commentSet.hashCode() : 0);
-        result = 31 * result + (tagSet != null ? tagSet.hashCode() : 0);
-        return result;
     }
 
     @Override
     public String toString() {
         return "Image{" +
-                "image_id=" + image_id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", createdDate=" + createdDate +
                 ", changedDate=" + changedDate +
@@ -191,6 +190,7 @@ public class Image {
                 ", author=" + author +
                 ", commentSet=" + commentSet +
                 ", tagSet=" + tagSet +
+                ", id=" + id +
                 '}';
     }
 }

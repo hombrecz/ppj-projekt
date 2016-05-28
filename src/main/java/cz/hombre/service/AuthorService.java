@@ -3,9 +3,12 @@ package cz.hombre.service;
 import cz.hombre.data.Author;
 import cz.hombre.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -14,8 +17,10 @@ import java.util.stream.StreamSupport;
  */
 
 @Service
+@Transactional
 public class AuthorService {
 
+    @Qualifier("authorRepository")
     @Autowired
     private AuthorRepository authorRepository;
 
@@ -27,7 +32,7 @@ public class AuthorService {
         authorRepository.save(author);
     }
 
-    public Author getOffer(Integer id) {
+    public Author getOffer(UUID id) {
         return authorRepository.findOne(id);
     }
 
@@ -36,7 +41,7 @@ public class AuthorService {
         authorRepository.save(author);
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         authorRepository.delete(id);
     }
 

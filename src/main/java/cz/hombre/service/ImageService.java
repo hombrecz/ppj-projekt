@@ -3,9 +3,12 @@ package cz.hombre.service;
 import cz.hombre.data.Image;
 import cz.hombre.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -13,8 +16,10 @@ import java.util.stream.StreamSupport;
  * @author ondrej.dlabola
  */
 @Service
+@Transactional
 public class ImageService {
 
+    @Qualifier("imageRepository")
     @Autowired
     private ImageRepository imageRepository;
 
@@ -25,7 +30,7 @@ public class ImageService {
     public void create(Image image) { imageRepository.save(image);
     }
 
-    public Image getImage(Integer id) {
+    public Image getImage(UUID id) {
         return imageRepository.findOne(id);
     }
 
@@ -33,7 +38,7 @@ public class ImageService {
         imageRepository.save(image);
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         imageRepository.delete(id);
     }
 

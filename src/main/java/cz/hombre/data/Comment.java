@@ -2,21 +2,26 @@ package cz.hombre.data;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author ondrej.dlabola
  */
 @Entity
 @Table(name = "comments")
+@Document(collection = "comments")
 public class Comment {
     @Id
-    @GeneratedValue
-    private int comment_id;
+    @org.springframework.data.annotation.Id
+//    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "comment")
     private String comment;
@@ -35,27 +40,35 @@ public class Comment {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "authorId")
+    @JoinColumn(name = "author")
+    @DBRef
     private Author author;
 
-    @ManyToMany(mappedBy = "images")
+    @ManyToMany(mappedBy = "commentSet")
+    @DBRef
     private Set<Image> imageSet = new HashSet<>();
 
     public Comment() {
 
     }
 
-    public Comment(String comment, Author author) {
+    public Comment(UUID id, String comment, Author author) {
+        this.id = id;
         this.comment = comment;
         this.author = author;
     }
 
-    public int getComment_id() {
-        return comment_id;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
-    public void setComment_id(int comment_id) {
-        this.comment_id = comment_id;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getComment() {
@@ -113,7 +126,7 @@ public class Comment {
 
         Comment comment1 = (Comment) o;
 
-        if (comment_id != comment1.comment_id) return false;
+        if (id != null ? !id.equals(comment1.id) : comment1.id != null) return false;
         if (comment != null ? !comment.equals(comment1.comment) : comment1.comment != null) return false;
         if (createdDate != null ? !createdDate.equals(comment1.createdDate) : comment1.createdDate != null)
             return false;
@@ -122,32 +135,22 @@ public class Comment {
         if (likesCount != null ? !likesCount.equals(comment1.likesCount) : comment1.likesCount != null) return false;
         if (dislikesCount != null ? !dislikesCount.equals(comment1.dislikesCount) : comment1.dislikesCount != null)
             return false;
-        return !(author != null ? !author.equals(comment1.author) : comment1.author != null);
+        if (author != null ? !author.equals(comment1.author) : comment1.author != null) return false;
+        return !(imageSet != null ? !imageSet.equals(comment1.imageSet) : comment1.imageSet != null);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = comment_id;
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (changedDate != null ? changedDate.hashCode() : 0);
-        result = 31 * result + (likesCount != null ? likesCount.hashCode() : 0);
-        result = 31 * result + (dislikesCount != null ? dislikesCount.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        return result;
     }
 
     @Override
     public String toString() {
         return "Comment{" +
-                "comment_id=" + comment_id +
+                "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", createdDate=" + createdDate +
                 ", changedDate=" + changedDate +
                 ", likesCount=" + likesCount +
                 ", dislikesCount=" + dislikesCount +
                 ", author=" + author +
+                ", imageSet=" + imageSet +
                 '}';
     }
 }

@@ -1,7 +1,14 @@
 package cz.hombre.data;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author ondrej.dlabola
@@ -10,11 +17,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "authors")
+@Document(collection = "authors")
 public class Author {
     @Id
-    @GeneratedValue
-    private int author_id;
+    @org.springframework.data.annotation.Id
+//    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
+    @TextIndexed
     @Column(name = "name")
     private String name;
 
@@ -23,17 +33,23 @@ public class Author {
 
     public Author() {}
 
-    public Author(String name, Date registrationDate) {
+    public Author(UUID id, String name, Date registrationDate) {
+        this.id = id;
         this.name = name;
         this.registrationDate = registrationDate;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public UUID getId() {
+        return id;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     public String getName() {
@@ -53,32 +69,24 @@ public class Author {
     }
 
     @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Author author = (Author) o;
 
-        if (author_id != author.author_id) return false;
+        if (id != null ? !id.equals(author.id) : author.id != null) return false;
         if (name != null ? !name.equals(author.name) : author.name != null) return false;
         return !(registrationDate != null ? !registrationDate.equals(author.registrationDate) : author.registrationDate != null);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = author_id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (registrationDate != null ? registrationDate.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "author_id=" + author_id +
-                ", name='" + name + '\'' +
-                ", registrationDate=" + registrationDate +
-                '}';
     }
 }

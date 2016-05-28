@@ -4,10 +4,12 @@ import cz.hombre.data.Author;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 /**
  * @author ondrej.dlabola
  */
 @Repository
-public interface AuthorRepository extends CrudRepository<Author, Integer>  {
+public interface AuthorRepository extends CrudRepository<Author, UUID>  {
 
 }
