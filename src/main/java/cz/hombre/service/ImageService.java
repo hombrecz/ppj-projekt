@@ -19,7 +19,6 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class ImageService {
 
-    @Qualifier("imageRepository")
     @Autowired
     private ImageRepository imageRepository;
 

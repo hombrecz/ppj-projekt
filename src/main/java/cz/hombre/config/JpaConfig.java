@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class
 })
-@EnableJpaRepositories(basePackages = "cz.tul.repositories")
+@EnableJpaRepositories(basePackages = "cz.hombre.repositories")
 @Import(PostgreConfig.class)
 public class JpaConfig {
 

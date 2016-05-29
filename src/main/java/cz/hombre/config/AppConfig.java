@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * @author ondrej.dlabola
  */
 @Configuration
-@ComponentScan("cz.hombre")
+@ComponentScan
 public class AppConfig {
 
 }

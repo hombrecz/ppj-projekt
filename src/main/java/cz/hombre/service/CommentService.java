@@ -19,7 +19,6 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class CommentService {
 
-    @Qualifier("commentRepository")
     @Autowired
     private CommentRepository commentRepository;
 

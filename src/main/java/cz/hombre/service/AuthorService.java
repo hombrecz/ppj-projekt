@@ -20,7 +20,6 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class AuthorService {
 
-    @Qualifier("authorRepository")
     @Autowired
     private AuthorRepository authorRepository;
 

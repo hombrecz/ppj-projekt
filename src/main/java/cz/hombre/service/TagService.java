@@ -19,7 +19,6 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class TagService {
 
-    @Qualifier("tagRepository")
     @Autowired
     private TagRepository tagRepository;
 

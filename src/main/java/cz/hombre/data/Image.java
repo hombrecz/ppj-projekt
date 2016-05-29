@@ -76,6 +76,7 @@ public class Image {
         this.tagSet = tagSet;
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
+        this.createdDate = new Date();
     }
 
     @Override
