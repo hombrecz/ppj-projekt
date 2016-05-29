@@ -21,7 +21,7 @@ public class Image {
 
     @Id
     @org.springframework.data.annotation.Id
-//    @Column(columnDefinition = "BINARY(16)")
+    @Column//(columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "name")

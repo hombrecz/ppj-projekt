@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Comment {
     @Id
     @org.springframework.data.annotation.Id
-//    @Column(columnDefinition = "BINARY(16)")
+    @Column//(columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "comment")

@@ -1,10 +1,9 @@
 package cz.hombre;
 
-import cz.hombre.data.Author;
-import cz.hombre.service.AuthorService;
-import cz.hombre.service.CommentService;
-import cz.hombre.service.ImageService;
-import cz.hombre.service.TagService;
+import cz.hombre.repositories.AuthorRepository;
+import cz.hombre.repositories.CommentRepository;
+import cz.hombre.repositories.ImageRepository;
+import cz.hombre.repositories.TagRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,23 +21,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles({"test"})
 public class DBTest {
     @Autowired
-    private AuthorService authorService;
+    private AuthorRepository authorRepository;
 
     @Autowired
-    private CommentService commentService;
+    private CommentRepository commentRepository;
 
     @Autowired
-    private ImageService imageService;
+    private ImageRepository imageRepository;
 
     @Autowired
-    private TagService tagService;
+    private TagRepository tagRepository;
 
     @Before
     public void init() {
-        authorService.deleteAuthors();
-        commentService.deleteComments();
-        imageService.deleteImages();
-        tagService.deleteTags();
+        authorRepository.deleteAll();
+        commentRepository.deleteAll();
+        imageRepository.deleteAll();
+        tagRepository.deleteAll();
     }
 
     @Test
