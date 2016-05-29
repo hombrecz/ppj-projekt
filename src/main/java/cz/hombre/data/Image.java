@@ -53,7 +53,7 @@ public class Image {
     private Set<Comment> commentSet = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable( name="image_tags",
+    @JoinTable(name="image_tags",
             joinColumns = {@JoinColumn(name="name")},
             inverseJoinColumns = {@JoinColumn(name="value")})
     @DBRef
@@ -169,28 +169,10 @@ public class Image {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image image = (Image) o;
-
-        if (name != null ? !name.equals(image.name) : image.name != null) return false;
-        if (url != null ? !url.equals(image.url) : image.url != null) return false;
-        if (createdDate != null ? !createdDate.equals(image.createdDate) : image.createdDate != null) return false;
-        if (changedDate != null ? !changedDate.equals(image.changedDate) : image.changedDate != null) return false;
-        if (likesCount != null ? !likesCount.equals(image.likesCount) : image.likesCount != null) return false;
-        if (dislikesCount != null ? !dislikesCount.equals(image.dislikesCount) : image.dislikesCount != null)
-            return false;
-        if (author != null ? !author.equals(image.author) : image.author != null) return false;
-        return !(id != null ? !id.equals(image.id) : image.id != null);
-
-    }
-
-    @Override
     public String toString() {
         return "Image{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", createdDate=" + createdDate +
                 ", changedDate=" + changedDate +
@@ -199,7 +181,25 @@ public class Image {
                 ", author=" + author +
                 ", commentSet=" + commentSet +
                 ", tagSet=" + tagSet +
-                ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        if (id != null ? !id.equals(image.id) : image.id != null) return false;
+        if (name != null ? !name.equals(image.name) : image.name != null) return false;
+        if (url != null ? !url.equals(image.url) : image.url != null) return false;
+        if (createdDate != null ? !createdDate.equals(image.createdDate) : image.createdDate != null) return false;
+        if (changedDate != null ? !changedDate.equals(image.changedDate) : image.changedDate != null) return false;
+        if (likesCount != null ? !likesCount.equals(image.likesCount) : image.likesCount != null) return false;
+        if (dislikesCount != null ? !dislikesCount.equals(image.dislikesCount) : image.dislikesCount != null)
+            return false;
+        if (author != null ? !author.getId().equals(image.author.getId()) : image.author != null) return false;
+        return true;
     }
 }

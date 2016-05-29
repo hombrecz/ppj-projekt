@@ -3,6 +3,6 @@ package cz.hombre.config;
 /**
  * @author ondrej.dlabola
  */
-//@EnableAutoConfiguration
+//@EnableAutoConfiguration //TODO nahradit a smazat
 public class PostgreConfig {
 }

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * @author ondrej.dlabola
  */
-@Profile({"hsqldb", "postgre"})
+@Profile({"test", "postgre"})
 @ImportAutoConfiguration({
         HibernateJpaAutoConfiguration.class,
         DataSourceAutoConfiguration.class,
