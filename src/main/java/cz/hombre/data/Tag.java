@@ -65,6 +65,10 @@ public class Tag {
         this.id = id;
     }
 
+    public Tag(String value) {
+        this.value = value;
+    }
+
     public Tag(UUID id, String value, Set<Image> imageSet) {
         this.id = id;
         this.value = value;
@@ -80,7 +84,7 @@ public class Tag {
 
         if (id != null ? !id.equals(tag.id) : tag.id != null) return false;
         if (value != null ? !value.equals(tag.value) : tag.value != null) return false;
-        return !(imageSet != null ? !imageSet.equals(tag.imageSet) : tag.imageSet != null);
+        return true;
 
     }
 

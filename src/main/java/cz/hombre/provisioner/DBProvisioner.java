@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
  */
 @Transactional
 @Component
+@Profile({"mongo", "postgre"})
 public class DBProvisioner implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(DBProvisioner.class);
@@ -51,8 +53,8 @@ public class DBProvisioner implements InitializingBean {
         log.debug("Loading data to database");
         initAuthors();
         initComments();
-        initImages();
         initTags();
+        initImages();
         log.debug("Loading finished");
     }
 
@@ -110,7 +112,7 @@ public class DBProvisioner implements InitializingBean {
         HashSet<Tag> result = new HashSet<>();
         for (String s:arrayInString.split(",, ")) {
             if (!s.isEmpty()) {
-                result.add(new Tag(UUID.fromString(s)));
+                result.addAll(tagRepository.findByValue(s));
             }
         }
         return result;
@@ -133,7 +135,7 @@ public class DBProvisioner implements InitializingBean {
         HashSet<Image> result = new HashSet<>();
         for (String s:arrayInString.split(",, ")) {
             if (!s.isEmpty()) {
-                result.add(new Image(UUID.fromString(s)));
+                result.add(new Image(s));
             }
         }
         return result;

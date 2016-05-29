@@ -66,6 +66,10 @@ public class Image {
         this.id = id;
     }
 
+    public Image(String name) {
+        this.name = name;
+    }
+
     public Image(UUID id, String name, String url, Author author, Set<Comment> commentSet, Set<Tag> tagSet,
                  int likesCount, int dislikesCount) {
         this.id = id;
@@ -179,8 +183,6 @@ public class Image {
         if (dislikesCount != null ? !dislikesCount.equals(image.dislikesCount) : image.dislikesCount != null)
             return false;
         if (author != null ? !author.equals(image.author) : image.author != null) return false;
-        if (commentSet != null ? !commentSet.equals(image.commentSet) : image.commentSet != null) return false;
-        if (tagSet != null ? !tagSet.equals(image.tagSet) : image.tagSet != null) return false;
         return !(id != null ? !id.equals(image.id) : image.id != null);
 
     }
