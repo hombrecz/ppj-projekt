@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 /**
  * @author ondrej.dlabola
  */
-@Component
 @Transactional
+@Component
 public class DBProvisioner implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(DBProvisioner.class);

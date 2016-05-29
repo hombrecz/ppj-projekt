@@ -42,7 +42,7 @@ public class CommentService {
         commentRepository.delete(id);
     }
 
-    public void deleteTags() {
+    public void deleteComments() {
         commentRepository.deleteAll();
     }
 }
