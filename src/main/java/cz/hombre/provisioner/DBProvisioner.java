@@ -50,11 +50,13 @@ public class DBProvisioner implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
+
         log.debug("Loading data to database");
         initAuthors();
-        initComments();
         initTags();
         initImages();
+        initComments();
         log.debug("Loading finished");
     }
 

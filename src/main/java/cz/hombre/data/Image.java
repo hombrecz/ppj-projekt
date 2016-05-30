@@ -1,5 +1,7 @@
 package cz.hombre.data;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -48,7 +50,8 @@ public class Image {
     @DBRef
     private Author author;
 
-    @OneToMany(mappedBy = "image", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @DBRef
     private Set<Comment> commentSet = new HashSet<>();
 

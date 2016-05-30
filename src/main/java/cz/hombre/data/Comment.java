@@ -62,6 +62,7 @@ public class Comment {
         this.createdDate = new Date();
         this.likesCount = likesCount;
         this.dislikesCount = dislikesCount;
+        this.image = image;
     }
 
     public Comment(UUID id, String comment, Author author) {
