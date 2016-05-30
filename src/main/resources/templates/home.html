@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>PPJ projekt</title>
+    </head>
+    <body>
+    <form action="#" th:action="@{/}" th:object="${post}" method="post">
+        <div>
+            <button type="submit">Next</button>
+            <img th:src="@{${image.url}}"/>
+            <p th:text="${image.name} - ${image.author.name}, ${image.createdDate}"></p>
+            <tr th:each="tag : ${image.tagSet}">
+                <p th:text="${tag.value}"></p>
+            </tr>
+            <div>
+                <p><a th:href="@{/likeImg}">Likes (${image.likesCount})</a></p>
+
+                <p><a th:href="@{/dislikeImg}">Dislikes (${image.dislikesCount})</a></p>
+            </div>
+        </div>
+
+        <div>
+            <tr th:each="comment : ${image.commentSet}">
+                <p th:text="${comment.comment} - ${comment.author.name}, ${comment.createdDate}"></p>
+                <div>
+                    <p><a th:href="@{/likeComment}">Likes (${comment.likesCount})</a></p>
+
+                    <p><a th:href="@{/dislikeComment}">Dislikes (${comment.dislikesCount})</a></p>
+                </div>
+            </tr>
+        </div>
+    </form>
+    </body>
+</html>
