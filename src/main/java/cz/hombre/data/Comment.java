@@ -172,7 +172,7 @@ public class Comment {
                 ", likesCount=" + likesCount +
                 ", dislikesCount=" + dislikesCount +
                 ", author=" + author +
-                ", image=" + image +
+                ", image=" + image.getName() +
                 '}';
     }
 }

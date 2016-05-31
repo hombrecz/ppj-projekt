@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>PPJ projekt</title>
-    </head>
-    <body>
-    <form action="#" th:action="@{/}" th:object="${post}" method="post">
-        <div>
-            <button type="submit">Next</button>
-            <img th:src="@{${image.url}}"/>
-            <p th:text="${image.name} - ${image.author.name}, ${image.createdDate}"></p>
-            <tr th:each="tag : ${image.tagSet}">
-                <p th:text="${tag.value}"></p>
-            </tr>
-            <div>
-                <p><a th:href="@{/likeImg}">Likes (${image.likesCount})</a></p>
-
-                <p><a th:href="@{/dislikeImg}">Dislikes (${image.dislikesCount})</a></p>
-            </div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>PPJ projekt</title>
+</head>
+<body>
+<div>
+    <a th:text="Next" th:href="${'/projekt?id='+nextImageID}"></a>
+</div>
+<div>
+    <div>
+        <img th:src="@{${image.url}}"/>
+    </div>
+    <div>
+        <p th:text="${image.name + ' - ' + image.author.name+ ', ' + image.createdDate}"></p>
+    </div>
+    <div>
+        <div th:each="tag : ${image.tagSet}">
+            <p th:text="${'#'+tag.value+','}"></p>
         </div>
-
         <div>
-            <tr th:each="comment : ${image.commentSet}">
-                <p th:text="${comment.comment} - ${comment.author.name}, ${comment.createdDate}"></p>
-                <div>
-                    <p><a th:href="@{/likeComment}">Likes (${comment.likesCount})</a></p>
-
-                    <p><a th:href="@{/dislikeComment}">Dislikes (${comment.dislikesCount})</a></p>
-                </div>
-            </tr>
+            <a th:text="'Likes ('+${image.likesCount}+')'" th:href="@{/likeImg}"></a>
         </div>
-    </form>
-    </body>
+        <div>
+            <a th:text="'Dislikes ('+${image.dislikesCount}+')'" th:href="@{/dislikeImg}"></a>
+        </div>
+    </div>
+</div>
+<div>
+    <table>
+        <tr th:each="comment : ${image.commentSet}">
+            <td>
+                <p th:text="${comment.comment + ' - ' + comment.author.name+ ', ' + comment.createdDate}"></p>
+            </td>
+            <td>
+                <a th:text="'Likes ('+${comment.likesCount}+')'" th:href="@{/likeComment}"></a>
+            </td>
+            <td>
+                <a th:text="'Dislikes ('+${comment.dislikesCount}+')'" th:href="@{/dislikeComment}"></a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
 </html>

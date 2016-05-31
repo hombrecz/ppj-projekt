@@ -29,7 +29,7 @@ public class HomeController {
         this.imageRepository = imageRepository;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/projekt")
     public String showHome(Model model, @RequestParam("id") String id) {
         if ((null == id) || (id == "")) {
             id = imageRepository.findAll().iterator().next().getId().toString();
@@ -45,11 +45,19 @@ public class HomeController {
     private String getNextImageID(UUID id) {
         Iterator<Image> it = imageRepository.findAll().iterator();
         Image first = it.next();
-        while (it.hasNext()) {
-            if (it.next().getId() == id) {
-                return it.next().getId().toString();
-            }
+        Image next = it.next();
+
+        if (first.getId() == id) {
+            return next.getId().toString();
         }
-        return first.getId().toString();
+
+        while (it.hasNext() && (next.getId() != id)) {
+            next = it.next();
+        }
+        if (it.hasNext()) {
+            return it.next().getId().toString();
+        } else {
+            return first.getId().toString();
+        }
     }
 }

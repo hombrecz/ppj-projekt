@@ -75,12 +75,12 @@ public class ImageService {
         return images;
     }
 
-    public void incrementLikes(Image image){
-        imageRepository.incrementLikes(image.getId());
+    public void incrementLikesCount(Image image){
+        imageRepository.updateLikesCount(image.getId());
     }
 
-    public void incrementDisikes(Image image){
-        imageRepository.incrementDisikes(image.getId());
+    public void incrementDislikesCount(Image image){
+        imageRepository.updateDislikesCount(image.getId());
     }
 
     public void addComment(Image image, String comment, UUID authorId){

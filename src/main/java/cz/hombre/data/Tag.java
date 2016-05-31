@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -19,10 +20,11 @@ public class Tag {
 
     @Id
     @org.springframework.data.annotation.Id
-    @Column//(columnDefinition = "BINARY(16)")
+    @Column
     private UUID id;
 
     @Column(name = "value")
+    @Size(max = 16)
     private String value;
 
     @ManyToMany(mappedBy = "tagSet")
@@ -93,7 +95,6 @@ public class Tag {
         return "Tag{" +
                 "id=" + id +
                 ", value='" + value + '\'' +
-                ", imageSet=" + imageSet +
                 '}';
     }
 }

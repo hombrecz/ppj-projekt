@@ -1,6 +1,7 @@
 package cz.hombre.repositories;
 
 import cz.hombre.data.Image;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -25,9 +26,11 @@ public interface ImageRepository extends CrudRepository<Image, UUID> {
     @Query("select i from Image as i inner join i.tagSet tags where tags.value = :tag")
     public List<Image> findByTagSetIsIn(@Param("tag")String tag);
 
+    @Modifying
     @Query("update Image as i set i.likesCount = i.likesCount + 1 where i.id = :id")
-    public void incrementLikes(@Param("id") UUID id);
+    public void updateLikesCount(@Param("id") UUID id);
 
+    @Modifying
     @Query("update Image as i set i.dislikesCount = i.dislikesCount + 1 where i.id = :id")
-    public void incrementDisikes(@Param("id") UUID id);
+    public void updateDislikesCount(@Param("id") UUID id);
 }
