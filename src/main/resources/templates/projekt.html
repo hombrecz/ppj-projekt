@@ -20,10 +20,10 @@
             <p th:text="${'#'+tag.value+','}"></p>
         </div>
         <div>
-            <a th:text="'Likes ('+${image.likesCount}+')'" th:href="@{/likeImg}"></a>
+            <a th:text="'Likes ('+${image.likesCount}+')'" th:href="${'/likeImg?id='+image.id}"></a>
         </div>
         <div>
-            <a th:text="'Dislikes ('+${image.dislikesCount}+')'" th:href="@{/dislikeImg}"></a>
+            <a th:text="'Dislikes ('+${image.dislikesCount}+')'" th:href="${'/dislikeImg?id='+image.id}"></a>
         </div>
     </div>
 </div>
@@ -34,10 +34,10 @@
                 <p th:text="${comment.comment + ' - ' + comment.author.name+ ', ' + comment.createdDate}"></p>
             </td>
             <td>
-                <a th:text="'Likes ('+${comment.likesCount}+')'" th:href="@{/likeComment}"></a>
+                <a th:text="'Likes ('+${comment.likesCount}+')'" th:href="@{'/likeComment'(id=${image.id}, commentId=${comment.id})}"></a>
             </td>
             <td>
-                <a th:text="'Dislikes ('+${comment.dislikesCount}+')'" th:href="@{/dislikeComment}"></a>
+                <a th:text="'Dislikes ('+${comment.dislikesCount}+')'" th:href="@{'/dislikeComment'(id=${image.id}, commentId=${comment.id})}"></a>
             </td>
         </tr>
     </table>

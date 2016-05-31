@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,10 +27,12 @@ public interface ImageRepository extends CrudRepository<Image, UUID> {
     @Query("select i from Image as i inner join i.tagSet tags where tags.value = :tag")
     public List<Image> findByTagSetIsIn(@Param("tag")String tag);
 
+    @Transactional
     @Modifying
     @Query("update Image as i set i.likesCount = i.likesCount + 1 where i.id = :id")
     public void updateLikesCount(@Param("id") UUID id);
 
+    @Transactional
     @Modifying
     @Query("update Image as i set i.dislikesCount = i.dislikesCount + 1 where i.id = :id")
     public void updateDislikesCount(@Param("id") UUID id);

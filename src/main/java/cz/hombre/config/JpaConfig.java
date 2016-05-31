@@ -4,7 +4,6 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.test.ImportAutoConfiguration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -18,7 +17,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         JpaRepositoriesAutoConfiguration.class
 })
 @EnableJpaRepositories(basePackages = "cz.hombre.repositories")
-@Import(PostgreConfig.class)
 public class JpaConfig {
 
 }

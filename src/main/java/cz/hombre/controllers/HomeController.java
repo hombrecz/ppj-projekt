@@ -1,17 +1,14 @@
 package cz.hombre.controllers;
 
 import cz.hombre.data.Image;
-import cz.hombre.repositories.AuthorRepository;
 import cz.hombre.repositories.CommentRepository;
 import cz.hombre.repositories.ImageRepository;
-import cz.hombre.repositories.TagRepository;
-import cz.hombre.services.CommentService;
-import cz.hombre.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Iterator;
 import java.util.UUID;
@@ -23,14 +20,16 @@ import java.util.UUID;
 public class HomeController {
 
     private ImageRepository imageRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
-    public void setImageRepository(ImageRepository imageRepository) {
+    public void setImageRepository(ImageRepository imageRepository, CommentRepository commentRepository) {
         this.imageRepository = imageRepository;
+        this.commentRepository = commentRepository;
     }
 
     @RequestMapping("/projekt")
-    public String showHome(Model model, @RequestParam("id") String id) {
+    public String showHome(Model model, @RequestParam(value="id", required=false) String id) {
         if ((null == id) || (id == "")) {
             id = imageRepository.findAll().iterator().next().getId().toString();
         }
@@ -39,7 +38,37 @@ public class HomeController {
 
         model.addAttribute("image", image);
         model.addAttribute("nextImageID", nextImageID);
-        return "home";
+        return "projekt";
+    }
+
+    @RequestMapping("/likeImg")
+    public String likeImage(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id) {
+        imageRepository.updateLikesCount(UUID.fromString(id));
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/projekt";
+    }
+
+    @RequestMapping("/dislikeImg")
+    public String dislikeImage(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id) {
+        imageRepository.updateDislikesCount(UUID.fromString(id));
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/projekt";
+    }
+
+    @RequestMapping("/likeComment")
+    public String likeComment(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id,
+                              @RequestParam(value="commentId") String commentId) {
+        commentRepository.updateLikesCount(UUID.fromString(commentId));
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/projekt";
+    }
+
+    @RequestMapping("/dislikeComment")
+    public String dislikeComment(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id,
+                                 @RequestParam(value="commentId") String commentId) {
+        commentRepository.updateDislikesCount(UUID.fromString(commentId));
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/projekt";
     }
 
     private String getNextImageID(UUID id) {
