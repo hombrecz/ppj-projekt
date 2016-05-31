@@ -12,6 +12,6 @@ import java.util.UUID;
  */
 @Repository
 @RepositoryRestResource(collectionResourceRel = "authors", path = "authors")
-public interface AuthorRepository extends CrudRepository<Author, UUID>  {
+public interface AuthorRepository extends CrudRepository<Author, UUID> {
 
 }

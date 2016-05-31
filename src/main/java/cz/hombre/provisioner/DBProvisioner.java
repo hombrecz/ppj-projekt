@@ -90,33 +90,13 @@ public class DBProvisioner implements InitializingBean {
         if (isEmpty) {
             try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/image.txt")))) {
                 List<Image> imagesList = read.lines().map(s -> s.split("; "))
-                        .map(i -> new Image(UUID.fromString(i[0]), i[1], i[2],  new Author(UUID.fromString(i[3])),
+                        .map(i -> new Image(UUID.fromString(i[0]), i[1], i[2], new Author(UUID.fromString(i[3])),
                                 getCommentSetFromString(i[4]), getTagSetFromString(i[5]), Integer.parseInt(i[6]),
                                 Integer.parseInt(i[7]))).collect(Collectors.toList());
                 imageRepository.save(imagesList);
             }
         }
         return isEmpty;
-    }
-
-    private Set<Comment> getCommentSetFromString(String arrayInString) {
-        HashSet<Comment> result = new HashSet<>();
-        for (String s:arrayInString.split(",, ")) {
-            if (!s.isEmpty()) {
-                result.add(new Comment(UUID.fromString(s)));
-            }
-        }
-        return result;
-    }
-
-    private Set<Tag> getTagSetFromString(String arrayInString) {
-        HashSet<Tag> result = new HashSet<>();
-        for (String s:arrayInString.split(",, ")) {
-            if (!s.isEmpty()) {
-                result.addAll(tagRepository.findByValue(s));
-            }
-        }
-        return result;
     }
 
     private boolean initTags() throws IOException {
@@ -132,9 +112,29 @@ public class DBProvisioner implements InitializingBean {
         return isEmpty;
     }
 
+    private Set<Comment> getCommentSetFromString(String arrayInString) {
+        HashSet<Comment> result = new HashSet<>();
+        for (String s : arrayInString.split(",, ")) {
+            if (!s.isEmpty()) {
+                result.add(new Comment(UUID.fromString(s)));
+            }
+        }
+        return result;
+    }
+
+    private Set<Tag> getTagSetFromString(String arrayInString) {
+        HashSet<Tag> result = new HashSet<>();
+        for (String s : arrayInString.split(",, ")) {
+            if (!s.isEmpty()) {
+                result.addAll(tagRepository.findByValue(s));
+            }
+        }
+        return result;
+    }
+
     private Set<Image> getImageSetFromString(String arrayInString) {
         HashSet<Image> result = new HashSet<>();
-        for (String s:arrayInString.split(",, ")) {
+        for (String s : arrayInString.split(",, ")) {
             if (!s.isEmpty()) {
                 result.add(new Image(s));
             }

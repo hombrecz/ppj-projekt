@@ -16,10 +16,11 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public void incrementLikesCount(Comment comment){
+    public void incrementLikesCount(Comment comment) {
         commentRepository.updateLikesCount(comment.getId());
     }
 
-    public void incrementDislikesCount(Comment comment){ commentRepository.updateDislikesCount(comment.getId());
+    public void incrementDislikesCount(Comment comment) {
+        commentRepository.updateDislikesCount(comment.getId());
     }
 }

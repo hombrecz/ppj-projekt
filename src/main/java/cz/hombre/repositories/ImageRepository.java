@@ -25,7 +25,7 @@ public interface ImageRepository extends CrudRepository<Image, UUID> {
     public List<Image> findByAuthorName(@Param("author") String author);
 
     @Query("select i from Image as i inner join i.tagSet tags where tags.value = :tag")
-    public List<Image> findByTagSetIsIn(@Param("tag")String tag);
+    public List<Image> findByTagSetIsIn(@Param("tag") String tag);
 
     @Transactional
     @Modifying

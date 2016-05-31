@@ -30,7 +30,7 @@ public class ImageService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public List<Image> getImagesByName(String name){
+    public List<Image> getImagesByName(String name) {
         if (name == null) {
             return null;
         }
@@ -45,7 +45,7 @@ public class ImageService {
         return images;
     }
 
-    public List<Image> getImagesByAuthor(String author){
+    public List<Image> getImagesByAuthor(String author) {
         if (author == null) {
             return null;
         }
@@ -60,7 +60,7 @@ public class ImageService {
         return images;
     }
 
-    public List<Image> getImagesByTag(String tag){
+    public List<Image> getImagesByTag(String tag) {
         if (tag == null) {
             return null;
         }
@@ -75,15 +75,15 @@ public class ImageService {
         return images;
     }
 
-    public void incrementLikesCount(Image image){
+    public void incrementLikesCount(Image image) {
         imageRepository.updateLikesCount(image.getId());
     }
 
-    public void incrementDislikesCount(Image image){
+    public void incrementDislikesCount(Image image) {
         imageRepository.updateDislikesCount(image.getId());
     }
 
-    public void addComment(Image image, String comment, UUID authorId){
+    public void addComment(Image image, String comment, UUID authorId) {
         Author author = authorRepository.findOne(authorId);
         commentRepository.save(new Comment(UUID.randomUUID(), comment, author, image, 0, 0));
     }

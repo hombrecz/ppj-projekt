@@ -29,7 +29,7 @@ public class HomeController {
     }
 
     @RequestMapping("/projekt")
-    public String showHome(Model model, @RequestParam(value="id", required=false) String id) {
+    public String showHome(Model model, @RequestParam(value = "id", required = false) String id) {
         if ((null == id) || (id == "")) {
             id = imageRepository.findAll().iterator().next().getId().toString();
         }
@@ -42,30 +42,30 @@ public class HomeController {
     }
 
     @RequestMapping("/likeImg")
-    public String likeImage(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id) {
+    public String likeImage(RedirectAttributes redirectAttributes, @RequestParam(value = "id") String id) {
         imageRepository.updateLikesCount(UUID.fromString(id));
         redirectAttributes.addAttribute("id", id);
         return "redirect:/projekt";
     }
 
     @RequestMapping("/dislikeImg")
-    public String dislikeImage(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id) {
+    public String dislikeImage(RedirectAttributes redirectAttributes, @RequestParam(value = "id") String id) {
         imageRepository.updateDislikesCount(UUID.fromString(id));
         redirectAttributes.addAttribute("id", id);
         return "redirect:/projekt";
     }
 
     @RequestMapping("/likeComment")
-    public String likeComment(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id,
-                              @RequestParam(value="commentId") String commentId) {
+    public String likeComment(RedirectAttributes redirectAttributes, @RequestParam(value = "id") String id,
+                              @RequestParam(value = "commentId") String commentId) {
         commentRepository.updateLikesCount(UUID.fromString(commentId));
         redirectAttributes.addAttribute("id", id);
         return "redirect:/projekt";
     }
 
     @RequestMapping("/dislikeComment")
-    public String dislikeComment(RedirectAttributes redirectAttributes, @RequestParam(value="id") String id,
-                                 @RequestParam(value="commentId") String commentId) {
+    public String dislikeComment(RedirectAttributes redirectAttributes, @RequestParam(value = "id") String id,
+                                 @RequestParam(value = "commentId") String commentId) {
         commentRepository.updateDislikesCount(UUID.fromString(commentId));
         redirectAttributes.addAttribute("id", id);
         return "redirect:/projekt";

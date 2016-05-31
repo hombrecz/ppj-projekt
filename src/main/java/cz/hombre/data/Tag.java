@@ -31,6 +31,23 @@ public class Tag {
     @DBRef
     private Set<Image> imageSet = new HashSet<>();
 
+    public Tag() {
+    }
+
+    public Tag(UUID id) {
+        this.id = id;
+    }
+
+    public Tag(String value) {
+        this.value = value;
+    }
+
+    public Tag(UUID id, String value, Set<Image> imageSet) {
+        this.id = id;
+        this.value = value;
+        this.imageSet = imageSet;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
@@ -57,23 +74,6 @@ public class Tag {
     }
 
     public void setImageSet(Set<Image> imageSet) {
-        this.imageSet = imageSet;
-    }
-
-    public Tag() {
-    }
-
-    public Tag(UUID id) {
-        this.id = id;
-    }
-
-    public Tag(String value) {
-        this.value = value;
-    }
-
-    public Tag(UUID id, String value, Set<Image> imageSet) {
-        this.id = id;
-        this.value = value;
         this.imageSet = imageSet;
     }
 

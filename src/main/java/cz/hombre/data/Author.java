@@ -31,7 +31,8 @@ public class Author {
     @Column(name = "registration")
     private Date registrationDate;
 
-    public Author() {}
+    public Author() {
+    }
 
     public Author(UUID id) {
         this.id = id;

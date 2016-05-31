@@ -23,7 +23,7 @@ public class Image {
 
     @Id
     @org.springframework.data.annotation.Id
-    @Column//(columnDefinition = "BINARY(16)")
+    @Column
     private UUID id;
 
     @Column(name = "name")
@@ -56,9 +56,9 @@ public class Image {
     private Set<Comment> commentSet = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name="image_tags",
-            joinColumns = {@JoinColumn(name="name")},
-            inverseJoinColumns = {@JoinColumn(name="value")})
+    @JoinTable(name = "image_tags",
+            joinColumns = {@JoinColumn(name = "name")},
+            inverseJoinColumns = {@JoinColumn(name = "value")})
     @DBRef
     private Set<Tag> tagSet = new HashSet<>();
 

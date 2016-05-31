@@ -22,7 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * @author ondrej.dlabola
@@ -105,7 +106,7 @@ public class DBTest {
     private Tag tag1 = new Tag(
             tag1ID,
             "tag1",
-            new HashSet<Image>(){{
+            new HashSet<Image>() {{
                 add(new Image("image1"));
                 add(new Image("image2"));
             }}
@@ -113,7 +114,7 @@ public class DBTest {
     private Tag tag2 = new Tag(
             tag2ID,
             "tag2",
-            new HashSet<Image>(){{
+            new HashSet<Image>() {{
                 add(new Image("image1"));
                 add(new Image("image2"));
             }}
@@ -121,7 +122,7 @@ public class DBTest {
     private Tag tag3 = new Tag(
             tag3ID,
             "tag3",
-            new HashSet<Image>(){{
+            new HashSet<Image>() {{
                 add(new Image("image3"));
             }}
     );
@@ -131,10 +132,10 @@ public class DBTest {
             "image1",
             "url://something/1",
             new Author(author1ID),
-            new HashSet<Comment>(){{
+            new HashSet<Comment>() {{
                 add(new Comment(comment1ID));
             }},
-            new HashSet<Tag>(){{
+            new HashSet<Tag>() {{
                 add(tag1);
                 add(tag2);
             }},
@@ -147,10 +148,10 @@ public class DBTest {
             "image2",
             "url://something/2",
             new Author(author2ID),
-            new HashSet<Comment>(){{
+            new HashSet<Comment>() {{
                 add(new Comment(comment2ID));
             }},
-            new HashSet<Tag>(){{
+            new HashSet<Tag>() {{
                 add(tag1);
                 add(tag2);
             }},
@@ -163,10 +164,10 @@ public class DBTest {
             "image3",
             "url://something/3",
             new Author(author3ID),
-            new HashSet<Comment>(){{
+            new HashSet<Comment>() {{
                 add(new Comment(comment3ID));
             }},
-            new HashSet<Tag>(){{
+            new HashSet<Tag>() {{
                 add(tag3);
             }},
             0,
@@ -211,33 +212,33 @@ public class DBTest {
     @Test
     public void testGetByName() {
         List<Image> foundImages1 = imageService.getImagesByName("image1");
-        assertArrayEquals("Results of first search should match",new Image[]{image1},
+        assertArrayEquals("Results of first search should match", new Image[]{image1},
                 foundImages1.toArray(new Image[foundImages1.size()]));
 
         List<Image> foundImages2 = imageService.getImagesByName("image2");
-        assertNotEquals("Results of second search should not match",new Image[]{image1},
+        assertNotEquals("Results of second search should not match", new Image[]{image1},
                 foundImages2.toArray(new Image[foundImages2.size()]));
     }
 
     @Test
     public void testGetByTag() {
         List<Image> foundImages1 = imageService.getImagesByTag("tag3");
-        assertArrayEquals("Results of first search should match",new Image[]{image3},
+        assertArrayEquals("Results of first search should match", new Image[]{image3},
                 foundImages1.toArray(new Image[foundImages1.size()]));
 
         List<Image> foundImages2 = imageService.getImagesByTag("tag3");
-        assertNotEquals("Results of second search should not match",new Image[]{image1,image2},
+        assertNotEquals("Results of second search should not match", new Image[]{image1, image2},
                 foundImages2.toArray(new Image[foundImages2.size()]));
     }
 
     @Test
     public void testGetByAuthor() {
         List<Image> foundImages1 = imageService.getImagesByAuthor("adam");
-        assertArrayEquals("Results of first search should match",new Image[]{image1},
+        assertArrayEquals("Results of first search should match", new Image[]{image1},
                 foundImages1.toArray(new Image[foundImages1.size()]));
 
         List<Image> foundImages2 = imageService.getImagesByAuthor("bozena");
-        assertNotEquals("Results of second search should not match",new Image[]{image1},
+        assertNotEquals("Results of second search should not match", new Image[]{image1},
                 foundImages2.toArray(new Image[foundImages2.size()]));
     }
 }

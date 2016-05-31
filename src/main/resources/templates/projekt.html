@@ -34,10 +34,12 @@
                 <p th:text="${comment.comment + ' - ' + comment.author.name+ ', ' + comment.createdDate}"></p>
             </td>
             <td>
-                <a th:text="'Likes ('+${comment.likesCount}+')'" th:href="@{'/likeComment'(id=${image.id}, commentId=${comment.id})}"></a>
+                <a th:text="'Likes ('+${comment.likesCount}+')'"
+                   th:href="@{'/likeComment'(id=${image.id}, commentId=${comment.id})}"></a>
             </td>
             <td>
-                <a th:text="'Dislikes ('+${comment.dislikesCount}+')'" th:href="@{'/dislikeComment'(id=${image.id}, commentId=${comment.id})}"></a>
+                <a th:text="'Dislikes ('+${comment.dislikesCount}+')'"
+                   th:href="@{'/dislikeComment'(id=${image.id}, commentId=${comment.id})}"></a>
             </td>
         </tr>
     </table>
