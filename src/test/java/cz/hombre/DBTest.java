@@ -190,12 +190,6 @@ public class DBTest {
             add(author3);
         }});
 
-        commentRepository.save(new HashSet<Comment>() {{
-            add(comment1);
-            add(comment2);
-            add(comment3);
-        }});
-
         tagRepository.save(new HashSet<Tag>() {{
             add(tag1);
             add(tag2);
@@ -206,6 +200,12 @@ public class DBTest {
             add(image1);
             add(image2);
             add(image3);
+        }});
+
+        commentRepository.save(new HashSet<Comment>() {{
+            add(comment1);
+            add(comment2);
+            add(comment3);
         }});
     }
 
