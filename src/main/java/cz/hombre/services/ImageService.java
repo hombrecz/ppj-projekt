@@ -75,12 +75,23 @@ public class ImageService {
         return images;
     }
 
-    public void incrementLikesCount(Image image) {
-        imageRepository.updateLikesCount(image.getId());
+    public Image getImageById(UUID id) {
+        if (id == null) {
+            return null;
+        }
+        return imageRepository.findOne(id);
     }
 
-    public void incrementDislikesCount(Image image) {
-        imageRepository.updateDislikesCount(image.getId());
+    public Iterable<Image> getAllImages() {
+        return imageRepository.findAll();
+    }
+
+    public void incrementLikesCount(UUID id) {
+        imageRepository.updateLikesCount(id);
+    }
+
+    public void incrementDislikesCount(UUID id) {
+        imageRepository.updateDislikesCount(id);
     }
 
     public void addComment(Image image, String comment, UUID authorId) {
