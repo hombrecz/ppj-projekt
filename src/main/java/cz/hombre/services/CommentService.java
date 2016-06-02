@@ -1,5 +1,6 @@
 package cz.hombre.services;
 
+import cz.hombre.data.Comment;
 import cz.hombre.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,14 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public void incrementLikesCount(UUID id) {
-        commentRepository.updateLikesCount(id);
+        Comment comment = commentRepository.findOne(id);
+        comment.setLikesCount(comment.getLikesCount()+1);
+        commentRepository.save(comment);
     }
 
     public void incrementDislikesCount(UUID id) {
-        commentRepository.updateDislikesCount(id);
+        Comment comment = commentRepository.findOne(id);
+        comment.setDislikesCount(comment.getDislikesCount()+1);
+        commentRepository.save(comment);
     }
 }

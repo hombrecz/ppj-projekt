@@ -57,8 +57,10 @@ public class Image {
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "image_tags",
-            joinColumns = {@JoinColumn(name = "name")},
-            inverseJoinColumns = {@JoinColumn(name = "value")})
+            joinColumns = {@JoinColumn(name = "image_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")},
+            uniqueConstraints = {@UniqueConstraint(
+            columnNames = {"image_id", "tag_id"})})
     @DBRef
     private Set<Tag> tagSet = new HashSet<>();
 
@@ -70,6 +72,11 @@ public class Image {
     }
 
     public Image(String name) {
+        this.name = name;
+    }
+
+    public Image(UUID id, String name) {
+        this.id = id;
         this.name = name;
     }
 

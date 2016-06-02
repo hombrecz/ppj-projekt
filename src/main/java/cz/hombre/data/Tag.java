@@ -28,7 +28,7 @@ public class Tag {
     private String value;
 
     @ManyToMany(mappedBy = "tagSet")
-    @DBRef
+    @DBRef(lazy=true)
     private Set<Image> imageSet = new HashSet<>();
 
     public Tag() {

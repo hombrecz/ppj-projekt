@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Comment {
     @Id
     @org.springframework.data.annotation.Id
-    @Column//(columnDefinition = "BINARY(16)")
+    @Column
     private UUID id;
 
     @Column(name = "comment")
@@ -38,14 +38,14 @@ public class Comment {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "author")
-    @DBRef
+    @JoinColumn(name = "id")
+    @DBRef(lazy=true)
     private Author author;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "name")
-    @DBRef
+    @JoinColumn(name = "id")
+    @DBRef(lazy=true)
     private Image image;
 
     public Comment() {

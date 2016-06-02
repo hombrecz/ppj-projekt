@@ -87,11 +87,15 @@ public class ImageService {
     }
 
     public void incrementLikesCount(UUID id) {
-        imageRepository.updateLikesCount(id);
+        Image image = imageRepository.findOne(id);
+        image.setLikesCount(image.getLikesCount()+1);
+        imageRepository.save(image);
     }
 
     public void incrementDislikesCount(UUID id) {
-        imageRepository.updateDislikesCount(id);
+        Image image = imageRepository.findOne(id);
+        image.setDislikesCount(image.getDislikesCount()+1);
+        imageRepository.save(image);
     }
 
     public void addComment(Image image, String comment, UUID authorId) {

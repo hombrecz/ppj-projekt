@@ -20,8 +20,7 @@ import java.util.UUID;
 public class HomeController {
 
     private ImageService imageService;
-    private CommentService commentService
-            ;
+    private CommentService commentService;
 
     @Autowired
     public void setImageRepository(ImageService imageService, CommentService commentService) {
@@ -77,11 +76,11 @@ public class HomeController {
         Image first = it.next();
         Image next = it.next();
 
-        if (first.getId() == id) {
+        if (first.getId().equals(id)) {
             return next.getId().toString();
         }
 
-        while (it.hasNext() && (next.getId() != id)) {
+        while (it.hasNext() && (!next.getId().equals(id))) {
             next = it.next();
         }
         if (it.hasNext()) {

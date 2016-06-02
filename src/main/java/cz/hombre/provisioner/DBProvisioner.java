@@ -53,8 +53,8 @@ public class DBProvisioner implements InitializingBean {
 
         log.debug("Loading data to database");
         initAuthors();
-        initTags();
         initImages();
+        initTags();
         initComments();
         log.debug("Loading finished");
     }
@@ -134,9 +134,10 @@ public class DBProvisioner implements InitializingBean {
 
     private Set<Image> getImageSetFromString(String arrayInString) {
         HashSet<Image> result = new HashSet<>();
-        for (String s : arrayInString.split(",, ")) {
-            if (!s.isEmpty()) {
-                result.add(new Image(s));
+        String[] strings = arrayInString.split(",, ");
+        for (int i = 0; i < strings.length / 2; i++) {
+            if (!strings[i * 2].isEmpty() && !strings[i * 2 + 1].isEmpty()) {
+                result.add(new Image(UUID.fromString(strings[i * 2 + 1]), strings[i * 2]));
             }
         }
         return result;

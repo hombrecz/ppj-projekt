@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Author {
     @Id
     @org.springframework.data.annotation.Id
-    @Column//(columnDefinition = "BINARY(16)")
+    @Column
     private UUID id;
 
     @TextIndexed

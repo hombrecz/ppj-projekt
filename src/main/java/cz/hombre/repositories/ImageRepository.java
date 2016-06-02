@@ -26,14 +26,4 @@ public interface ImageRepository extends CrudRepository<Image, UUID> {
 
     @Query("select i from Image as i inner join i.tagSet tags where tags.value = :tag")
     public List<Image> findByTagSetIsIn(@Param("tag") String tag);
-
-    @Transactional
-    @Modifying
-    @Query("update Image as i set i.likesCount = i.likesCount + 1 where i.id = :id")
-    public void updateLikesCount(@Param("id") UUID id);
-
-    @Transactional
-    @Modifying
-    @Query("update Image as i set i.dislikesCount = i.dislikesCount + 1 where i.id = :id")
-    public void updateDislikesCount(@Param("id") UUID id);
 }
