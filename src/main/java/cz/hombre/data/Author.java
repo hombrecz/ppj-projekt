@@ -25,7 +25,7 @@ public class Author {
     private UUID id;
 
     @TextIndexed
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     private String name;
 
     @Column(name = "registration")

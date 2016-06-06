@@ -53,8 +53,8 @@ public class DBProvisioner implements InitializingBean {
 
         log.debug("Loading data to database");
         initAuthors();
-        initImages();
         initTags();
+        initImages();
         initComments();
         log.debug("Loading finished");
     }
@@ -63,37 +63,9 @@ public class DBProvisioner implements InitializingBean {
         boolean isEmpty = authorRepository.count() == 0;
         if (isEmpty) {
             try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/author.txt")))) {
-                List<Author> authorsList = read.lines().map(s -> s.split("; "))
-                        .map(a -> new Author(UUID.fromString(a[0]), a[1])).collect(Collectors.toList());
+                List<Author> authorsList = read.lines().map(a -> new Author(UUID.randomUUID(), a))
+                        .collect(Collectors.toList());
                 authorRepository.save(authorsList);
-            }
-        }
-        return isEmpty;
-    }
-
-    private boolean initComments() throws IOException {
-        boolean isEmpty = commentRepository.count() == 0;
-        if (isEmpty) {
-            try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/comment.txt")))) {
-                List<Comment> commentsList = read.lines().map(s -> s.split("; "))
-                        .map(c -> new Comment(UUID.fromString(c[0]), c[1], new Author(UUID.fromString(c[2])),
-                                new Image(UUID.fromString(c[3])), Integer.parseInt(c[4]), Integer.parseInt(c[5]))).collect(Collectors.toList());
-
-                commentRepository.save(commentsList);
-            }
-        }
-        return isEmpty;
-    }
-
-    private boolean initImages() throws IOException {
-        boolean isEmpty = imageRepository.count() == 0;
-        if (isEmpty) {
-            try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/image.txt")))) {
-                List<Image> imagesList = read.lines().map(s -> s.split("; "))
-                        .map(i -> new Image(UUID.fromString(i[0]), i[1], i[2], new Author(UUID.fromString(i[3])),
-                                getCommentSetFromString(i[4]), getTagSetFromString(i[5]), Integer.parseInt(i[6]),
-                                Integer.parseInt(i[7]))).collect(Collectors.toList());
-                imageRepository.save(imagesList);
             }
         }
         return isEmpty;
@@ -104,9 +76,37 @@ public class DBProvisioner implements InitializingBean {
         if (isEmpty) {
             try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/tag.txt")))) {
                 List<Tag> tagsList = read.lines().map(s -> s.split("; "))
-                        .map(t -> new Tag(UUID.fromString(t[0]), t[1], (getImageSetFromString(t[2])))).collect(Collectors.toList());
+                        .map(t -> new Tag(UUID.randomUUID(), t[0])).collect(Collectors.toList());
 
                 tagRepository.save(tagsList);
+            }
+        }
+        return isEmpty;
+    }
+
+    private boolean initImages() throws IOException {
+        boolean isEmpty = imageRepository.count() == 0;
+        if (isEmpty) {
+            try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/image.txt")))) {
+                List<Image> imagesList = read.lines().map(s -> s.split("; "))
+                        .map(i -> new Image(UUID.randomUUID(), i[0], i[1], authorRepository.findByName(i[2]).get(0),
+                                getCommentSetFromString(i[3]), getTagSetFromString(i[4]), Integer.parseInt(i[5]),
+                                Integer.parseInt(i[6]))).collect(Collectors.toList());
+                imageRepository.save(imagesList);
+            }
+        }
+        return isEmpty;
+    }
+
+    private boolean initComments() throws IOException {
+        boolean isEmpty = commentRepository.count() == 0;
+        if (isEmpty) {
+            try (BufferedReader read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/provision/comment.txt")))) {
+                List<Comment> commentsList = read.lines().map(s -> s.split("; "))
+                        .map(c -> new Comment(UUID.fromString(c[0]), c[1], authorRepository.findByName(c[2]).get(0),
+                                imageRepository.findByName(c[3]).get(0), Integer.parseInt(c[4]), Integer.parseInt(c[5]))).collect(Collectors.toList());
+
+                commentRepository.save(commentsList);
             }
         }
         return isEmpty;

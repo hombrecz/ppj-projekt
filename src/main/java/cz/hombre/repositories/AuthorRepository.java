@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,5 +14,7 @@ import java.util.UUID;
 @Repository
 @RepositoryRestResource(collectionResourceRel = "authors", path = "authors")
 public interface AuthorRepository extends CrudRepository<Author, UUID> {
+
+    public List<Author> findByName(String name);
 
 }

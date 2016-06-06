@@ -26,7 +26,7 @@ public class Image {
     @Column
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     private String name;
 
     @Column(name = "url")

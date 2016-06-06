@@ -23,7 +23,7 @@ public class Tag {
     @Column
     private UUID id;
 
-    @Column(name = "value")
+    @Column(name = "value", unique=true)
     @Size(max = 16)
     private String value;
 
@@ -39,6 +39,11 @@ public class Tag {
     }
 
     public Tag(String value) {
+        this.value = value;
+    }
+
+    public Tag(UUID id, String value) {
+        this.id = id;
         this.value = value;
     }
 
