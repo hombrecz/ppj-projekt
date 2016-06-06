@@ -34,6 +34,7 @@ public class Main {
         ConfigurableApplicationContext context = app.run(args);
 
         log.debug(Arrays.toString(context.getEnvironment().getActiveProfiles()));
+        log.warn("We are online!");
     }
 
 }
