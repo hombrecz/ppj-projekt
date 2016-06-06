@@ -1,6 +1,6 @@
 # ppj-projekt
 webová aplikace: http://localhost:8080/projekt
-REST api:
+REST api: http://localhost:8080/
 
 profily: postgre, mongo, test
 
