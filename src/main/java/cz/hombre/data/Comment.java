@@ -38,13 +38,13 @@ public class Comment {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "author_id")
     @DBRef(lazy=true)
     private Author author;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "name_id")
     @DBRef(lazy=true)
     private Image image;
 

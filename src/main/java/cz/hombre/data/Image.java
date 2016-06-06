@@ -46,7 +46,7 @@ public class Image {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "author")
+    @JoinColumn(name = "author_id")
     @DBRef
     private Author author;
 
