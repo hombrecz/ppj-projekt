@@ -1,0 +1,5 @@
+Tatra 603; https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Tatra_at_autotec_2010.JPG/800px-Tatra_at_autotec_2010.JPG; tom; ccddf93f-0383-4437-b799-3a0cef399a5c; fancy,, cute; 0; 0
+Lachtan; https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Antarctic%2C_sea_lion_%28js%29_64.jpg/384px-Antarctic%2C_sea_lion_%28js%29_64.jpg; carlos; caa6e717-5e84-4332-836b-d020443bafbd,, ea4a5124-1b77-4bac-9a4a-649817f4cb2f; colourful; 1; 1
+Electra; https://upload.wikimedia.org/wikipedia/commons/9/93/Lockheed_12A_Electra_Junior_Echuca_Vabre.jpg; tim-the-sorcerer; 14cac109-4400-4a6b-ad97-4c00cf53142c,, 995f2d72-6c60-452d-b7a9-300fb5a6b24d; funny; 0; 2
+Tygr; tiger.jpg; john; ; cute; 3; 2
+Defender; https://craigeaston.files.wordpress.com/2012/05/easton_120222_7062_02.jpg; john; 474f5cf9-cf64-4a0e-a600-87f142ad0b6f; fancy,, colourful,, funny; 1; 0

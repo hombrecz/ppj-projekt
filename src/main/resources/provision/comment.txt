@@ -1,0 +1,6 @@
+ccddf93f-0383-4437-b799-3a0cef399a5c; super!!; tom; Tatra 603; 1; 2
+caa6e717-5e84-4332-836b-d020443bafbd; to je husty!; carlos; Lachtan; 0; 0
+ea4a5124-1b77-4bac-9a4a-649817f4cb2f; nelibi; john; Lachtan; 3; 2
+14cac109-4400-4a6b-ad97-4c00cf53142c; profesionalni fotka; tom; Electra; 4; 0
+995f2d72-6c60-452d-b7a9-300fb5a6b24d; jeee to chci; john; Electra; 0; 0
+474f5cf9-cf64-4a0e-a600-87f142ad0b6f; to bych dokazal taky; carlos; Defender; 1; 0
