@@ -4,6 +4,7 @@ import cz.hombre.data.Image;
 import cz.hombre.services.CommentService;
 import cz.hombre.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ public class HomeController {
         this.commentService = commentService;
     }
 
+    @Value("${pics.path}")
+    private String path;
+
     @RequestMapping("/projekt")
     public String showHome(Model model, @RequestParam(value = "id", required = false) String id) {
         if ((null == id) || (id == "")) {
@@ -38,6 +42,13 @@ public class HomeController {
 
         model.addAttribute("image", image);
         model.addAttribute("nextImageID", nextImageID);
+
+        if (!image.getUrl().startsWith("http")) {
+            model.addAttribute("path", path);
+        } else {
+            model.addAttribute("path", "");
+        }
+
         return "projekt";
     }
 
