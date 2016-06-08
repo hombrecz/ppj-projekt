@@ -117,11 +117,6 @@
             <version>2.1.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.squareup.retrofit</groupId>
-            <artifactId>retrofit</artifactId>
-            <version>1.9.0</version>
-        </dependency>
     </dependencies>
 
     <build>
