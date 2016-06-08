@@ -2,7 +2,6 @@ package cz.hombre.controllers;
 
 import cz.hombre.client.FileManager;
 import cz.hombre.client.ImageStatus;
-import cz.hombre.client.ServerApi;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +12,9 @@ import java.io.IOException;
 public class PictureController {
     private FileManager imageDataMgr;
 
-    @RequestMapping(value = ServerApi.UPLOAD_PATH, method = RequestMethod.POST)
+    public static final String UPLOAD_PATH = "/upload/{name}";
+
+    @RequestMapping(value = UPLOAD_PATH, method = RequestMethod.POST)
     public
     @ResponseBody
     ImageStatus uploadImage(@PathVariable("name") String name,
