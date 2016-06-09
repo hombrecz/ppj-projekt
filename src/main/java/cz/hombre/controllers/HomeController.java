@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -33,15 +33,19 @@ public class HomeController {
     private String path;
 
     @RequestMapping("/projekt")
-    public String showHome(Model model, @RequestParam(value = "id", required = false) String id) {
-        if ((null == id) || (id == "")) {
-            id = imageService.getAllImages().iterator().next().getId().toString();
+    public String showHome(Model model, @RequestParam(value = "id", required = false) Integer actual) {
+        ArrayList<Image> images = new ArrayList<>(imageService.getAllImages());
+
+        if ((null == actual)||(actual == images.size()-1)) {
+            actual = 0;
+        } else {
+            actual++;
         }
-        Image image = imageService.getImageById(UUID.fromString(id));
-        String nextImageID = getNextImageID(image.getId());
+
+        Image image = images.get(actual);
 
         model.addAttribute("image", image);
-        model.addAttribute("nextImageID", nextImageID);
+        model.addAttribute("actual", actual);
 
         if (!image.getUrl().startsWith("http")) {
             model.addAttribute("path", path);
@@ -80,24 +84,5 @@ public class HomeController {
         commentService.incrementDislikesCount(UUID.fromString(commentId));
         redirectAttributes.addAttribute("id", id);
         return "redirect:/projekt";
-    }
-
-    private String getNextImageID(UUID id) {
-        Iterator<Image> it = imageService.getAllImages().iterator();
-        Image first = it.next();
-        Image next = it.next();
-
-        if (first.getId().equals(id)) {
-            return next.getId().toString();
-        }
-
-        while (it.hasNext() && (!next.getId().equals(id))) {
-            next = it.next();
-        }
-        if (it.hasNext()) {
-            return it.next().getId().toString();
-        } else {
-            return first.getId().toString();
-        }
     }
 }

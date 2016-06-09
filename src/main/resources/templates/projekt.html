@@ -42,7 +42,7 @@
                    th:href="${'/likeImg?id='+image.id}"></a>
                 <a class="btn btn-info" th:text="'Dislikes ('+${image.dislikesCount}+')'"
                    th:href="${'/dislikeImg?id='+image.id}"></a>
-                <a class="btn btn-info" th:text="Next" th:href="${'/projekt?id='+nextImageID}"></a>
+                <a class="btn btn-info" th:text="Next" th:href="${'/projekt?id='+actual}"></a>
             </div>
     </div>
     <div class="row row-centered text-center">

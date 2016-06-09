@@ -82,7 +82,7 @@ public class ImageService {
         return imageRepository.findOne(id);
     }
 
-    public Iterable<Image> getAllImages() {
+    public List<Image> getAllImages() {
         return imageRepository.findAll();
     }
 
