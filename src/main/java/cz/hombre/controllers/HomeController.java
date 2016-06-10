@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -33,19 +32,21 @@ public class HomeController {
     private String path;
 
     @RequestMapping("/projekt")
-    public String showHome(Model model, @RequestParam(value = "id", required = false) Integer actual) {
-        ArrayList<Image> images = new ArrayList<>(imageService.getAllImages());
+    public String showHome(Model model, @RequestParam(value = "id", required = false) String actual) {
+        Image image;
 
-        if ((null == actual)||(actual == images.size()-1)) {
-            actual = 0;
+        if(actual == null) {
+            image = imageService.getFirstImage();
         } else {
-            actual++;
+            image = imageService.getNextImageById(UUID.fromString(actual));
         }
 
-        Image image = images.get(actual);
+        if (image == null) {
+            image = imageService.getFirstImage();
+        }
 
         model.addAttribute("image", image);
-        model.addAttribute("actual", actual);
+        model.addAttribute("actual", image.getId().toString());
 
         if (!image.getUrl().startsWith("http")) {
             model.addAttribute("path", path);

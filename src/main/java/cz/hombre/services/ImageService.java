@@ -82,6 +82,14 @@ public class ImageService {
         return imageRepository.findOne(id);
     }
 
+    public Image getFirstImage() {
+        return imageRepository.findFirstByOrderById();
+    }
+
+    public Image getNextImageById(UUID prevId) {
+        return imageRepository.findFirstByIdGreaterThanOrderById(prevId);
+    }
+
     public List<Image> getAllImages() {
         return imageRepository.findAll();
     }

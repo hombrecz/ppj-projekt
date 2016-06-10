@@ -22,6 +22,10 @@ public interface ImageRepository extends CrudRepository<Image, UUID> {
 
     public List<Image> findAll();
 
+    public Image findFirstByOrderById();
+
+    public Image findFirstByIdGreaterThanOrderById(UUID id);
+
     @Query("select i from Image as i where i.author.name=:author")
     public List<Image> findByAuthorName(@Param("author") String author);
 
